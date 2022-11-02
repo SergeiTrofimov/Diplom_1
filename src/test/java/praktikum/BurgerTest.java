@@ -3,7 +3,6 @@ package praktikum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -29,9 +28,6 @@ public class BurgerTest {
     }
 
 
-    @Spy
-    Burger burger = new Burger();
-
     @Test //addIngredient
     public void addIngredientTest() {
         Burger burger = createBurger(0);
@@ -48,7 +44,7 @@ public class BurgerTest {
 
     @Test //moveIngredient
     public void moveIngredientTest() {
-        Burger burger = createBurger(5);
+        Burger burger = Mockito.spy(createBurger(5));
         burger.moveIngredient(0, 4);
         // Mockito.verify(burger.ingredients, Mockito.times(1)).add(ingredient);
     }
@@ -70,18 +66,7 @@ public class BurgerTest {
         Mockito.when(ingredient.getName()).thenReturn("Тестовый ингридиент");
         Mockito.when(ingredient.getType()).thenReturn(IngredientType.SAUCE);
         Mockito.doReturn(40f).when(burger).getPrice();
-       System.out.println(burger.getReceipt());
-        System.out.println(burger.getPrice());
-    }
-
-    @Test
-    public void getTest()// getReceipt()
-    {
-        Burger burger = Mockito.spy(new Burger());
-        burger.setBuns(bun);
-        burger.addIngredient(ingredient);
-        burger.addIngredient(ingredient);
-        Mockito.doReturn(1f).when(burger).getPrice();
+        System.out.println(burger.getReceipt());
         System.out.println(burger.getPrice());
     }
 }
