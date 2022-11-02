@@ -1,5 +1,6 @@
 package praktikum;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,7 +27,7 @@ public class BunTest {
                 {"Положительная булочка", 4.1E1f},
                 {"Отрицательная булочка", -4.1E1f},
                 {"Дробная булочка", 4.1E-1f},
-                {null, null}
+               // {null, null}
         };
     }
 
