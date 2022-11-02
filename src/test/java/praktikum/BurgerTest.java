@@ -3,6 +3,7 @@ package praktikum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class BurgerTest {
 
     Ingredient ingredient = Mockito.mock(Ingredient.class);
 
+
     private Burger createBurger(int size) {
         Burger burger = new Burger();
         burger.setBuns(bun);
@@ -26,6 +28,9 @@ public class BurgerTest {
         return burger;
     }
 
+
+    @Spy
+    Burger burger = new Burger();
 
     @Test //addIngredient
     public void addIngredientTest() {
@@ -59,23 +64,24 @@ public class BurgerTest {
 
     @Test
     public void getReceiptTest()// getReceipt()
-    {   Burger burger = createBurger(5);
+    {
+        Burger burger = Mockito.spy(createBurger(5));
         Mockito.when(bun.getName()).thenReturn("Тестовая булочка");
         Mockito.when(ingredient.getName()).thenReturn("Тестовый ингридиент");
         Mockito.when(ingredient.getType()).thenReturn(IngredientType.SAUCE);
-        //Mockito.when(burger.getPrice()).thenReturn(1f);
-        System.out.println("Размер = " + burger.ingredients.size());
-        System.out.println(burger.getReceipt());
+        Mockito.doReturn(40f).when(burger).getPrice();
+       System.out.println(burger.getReceipt());
         System.out.println(burger.getPrice());
     }
 
     @Test
     public void getTest()// getReceipt()
     {
-        Burger burger = new Burger();
+        Burger burger = Mockito.spy(new Burger());
         burger.setBuns(bun);
         burger.addIngredient(ingredient);
-        Mockito.when(burger.getPrice()).thenReturn(1f);
+        burger.addIngredient(ingredient);
+        Mockito.doReturn(1f).when(burger).getPrice();
         System.out.println(burger.getPrice());
     }
 }
