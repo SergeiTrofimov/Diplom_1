@@ -13,12 +13,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
 
-    Bun bun = Mockito.mock(Bun.class);
+    Bun bun = Mockito.mock(Bun.class); // мок для булочки
 
-    Ingredient ingredient = Mockito.mock(Ingredient.class);
+    Ingredient ingredient = Mockito.mock(Ingredient.class); //мок для ингридиента
 
 
-    private Burger createBurger(int size) {
+    private Burger createBurger(int size) { // Создаем бургер из моков
         Burger burger = new Burger();
         burger.setBuns(bun);
         for (int i = 0; i < size; i++) {
@@ -28,28 +28,28 @@ public class BurgerTest {
     }
 
 
-    @Test //addIngredient
+    @Test // Добавляем ингридикент
     public void addIngredientTest() {
         Burger burger = createBurger(0);
         burger.addIngredient(ingredient);
         assertEquals("Размер массива не совпадает", burger.ingredients.size(), 1);
     }
 
-    @Test // removeIngredient
+    @Test // Удлаляем ингридиент
     public void removeIngredientTest() {
         Burger burger = createBurger(5);
         burger.removeIngredient(0);
         assertEquals("Размер массива не совпадает", burger.ingredients.size(), 4);
     }
 
-    @Test //moveIngredient
+    @Test //Двигаем ингридиент
     public void moveIngredientTest() {
         Burger burger = Mockito.spy(createBurger(5));
         burger.moveIngredient(0, 4);
-        // Mockito.verify(burger.ingredients, Mockito.times(1)).add(ingredient);
+        assertEquals("Размер массива не совпадает", burger.ingredients.size(), 5);
     }
 
-    @Test //getPrice()
+    @Test //узнаем цену ингридиента
     public void getPriceTest() {
         Burger burger = createBurger(5);
         List<Ingredient> ingredients = new ArrayList<>();
@@ -59,7 +59,7 @@ public class BurgerTest {
     }
 
     @Test
-    public void getReceiptTest()// getReceipt()
+    public void getReceiptTest()// получаем состав бургера
     {
         Burger burger = Mockito.spy(createBurger(5));
         Mockito.when(bun.getName()).thenReturn("Тестовая булочка");
